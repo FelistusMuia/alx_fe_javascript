@@ -1,7 +1,5 @@
-
 // Quotes array with category and text
-
-let quotes =[
+let quotes = [
   { text: "The best way to get started is to quit talking and begin doing.", category: "Motivation" },
   { text: "Don’t let yesterday take up too much of today.", category: "Motivation" },
   { text: "Life is what happens when you’re busy making other plans.", category: "Life" },
@@ -9,25 +7,21 @@ let quotes =[
 ];
 
 // Get HTML elements
-
-const quoteDisplay = document.getElementById ("quoteDisplay");
-const newQuoteBtn  = document.getElementById ("newQuoteBtn");
+const quoteDisplay = document.getElementById("quoteDisplay");
+const newQuoteBtn = document.getElementById("newQuoteBtn");
 
 // Function to show random quote
-
-function showRandomQuote(){
-    let randomindex = Math.floor(Math.random() * quotes.length);
-    let randomQuote = quotes[randomIndex];
-    quoteDisplay.textContent = `"${randomQuote.text}" — ${randomQuote.category}`;
+function showRandomQuote() {
+  let randomIndex = Math.floor(Math.random() * quotes.length); // fixed variable name to randomIndex
+  let randomQuote = quotes[randomIndex];
+  quoteDisplay.textContent = `"${randomQuote.text}" — ${randomQuote.category}`;
 }
 
 // Function to create and handle the add quote form dynamically
-
-function createAddQuoteForm(){
-// If form already exists, remove it before creating a new one
-let existingForm = document.getElementById("AddQuoteForm");
-if (existingForm) existingForm.Remove();
-
+function createAddQuoteForm() {
+  // If form already exists, remove it before creating a new one
+  let existingForm = document.getElementById("addQuoteForm"); // fixed ID case
+  if (existingForm) existingForm.remove(); // fixed method case
 
   let form = document.createElement("form");
   form.id = "addQuoteForm";
