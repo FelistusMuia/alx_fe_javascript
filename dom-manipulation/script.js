@@ -12,16 +12,15 @@ const newQuoteBtn = document.getElementById("newQuoteBtn");
 
 // Function to show random quote
 function showRandomQuote() {
-  let randomIndex = Math.floor(Math.random() * quotes.length); // fixed variable name to randomIndex
+  let randomIndex = Math.floor(Math.random() * quotes.length);
   let randomQuote = quotes[randomIndex];
   quoteDisplay.textContent = `"${randomQuote.text}" — ${randomQuote.category}`;
 }
 
 // Function to create and handle the add quote form dynamically
 function createAddQuoteForm() {
-  // If form already exists, remove it before creating a new one
-  let existingForm = document.getElementById("addQuoteForm"); // fixed ID case
-  if (existingForm) existingForm.remove(); // fixed method case
+  let existingForm = document.getElementById("addQuoteForm");
+  if (existingForm) existingForm.remove();
 
   let form = document.createElement("form");
   form.id = "addQuoteForm";
@@ -44,10 +43,8 @@ function createAddQuoteForm() {
   form.appendChild(categoryInput);
   form.appendChild(submitBtn);
 
-  // Append form to the body
   document.body.appendChild(form);
 
-  // Handle form submission
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     quotes.push({ text: quoteInput.value, category: categoryInput.value });
