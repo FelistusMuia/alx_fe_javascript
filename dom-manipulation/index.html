@@ -1,122 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Quote Generator — Sync & Conflict Resolution</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Quote Generator</title>
 </head>
 <body>
-  <header class="app-header">
-    <h1>Dynamic Quote Generator</h1>
-    <div class="sync-controls">
-      <button id="btn-sync-now" title="Pull & push changes immediately">Sync now</button>
-      <label class="toggle">
-        <input type="checkbox" id="toggle-auto-sync" checked />
-        <span>Auto-sync (30s)</span>
-      </label>
-      <button id="btn-sim-server" title="Simulate server-side edits to test conflicts">Simulate server update</button>
-      <small id="last-sync">Last sync: —</small>
-    </div>
-  </header>
+  <h1>Dynamic Quote Generator</h1>
 
-  <!-- Notification bar -->
-  <div id="notifier" class="notifier hidden">
-    <span id="notify-text"></span>
-    <button id="notify-close" aria-label="Close notification">✕</button>
-  </div>
+  <div id="quoteDisplay"></div>
+  <button id="newQuote">Show New Quote</button>
 
-  <main class="container">
-    <!-- Add / edit form -->
-    <section class="card">
-      <h2>Add or Edit Quote</h2>
-      <form id="quote-form">
-        <input type="hidden" id="quote-id" />
-        <div class="grid">
-          <label>
-            <span>Quote</span>
-            <textarea id="quote-text" placeholder="Type the quote..." required></textarea>
-          </label>
-          <label>
-            <span>Author</span>
-            <input id="quote-author" type="text" placeholder="Author name" required />
-          </label>
-          <label>
-            <span>Category</span>
-            <input id="quote-category" type="text" placeholder="e.g., Motivation" />
-          </label>
-        </div>
-        <div class="row">
-          <button type="submit" id="btn-save">Save</button>
-          <button type="button" id="btn-cancel" class="secondary">Cancel</button>
-        </div>
-      </form>
-    </section>
+  <!-- Container where the form will be dynamically added -->
+  <div id="formContainer"></div>
 
-    <!-- Filter + Import/Export -->
-    <section class="card">
-      <h2>Filters & Data</h2>
-      <div class="row">
-        <label>
-          <span>Filter by category:</span>
-          <input id="filter-category" type="text" placeholder="Type to filter…"/>
-        </label>
-        <div class="spacer"></div>
-        <button id="btn-export" class="secondary">Export JSON</button>
-        <label class="import-btn">
-          <input id="input-import" type="file" accept="application/json" hidden />
-          <span>Import JSON</span>
-        </label>
-      </div>
-    </section>
-
-    <!-- Quotes list -->
-    <section class="card">
-      <h2>Quotes</h2>
-      <ul id="quote-list" class="quote-list"></ul>
-      <p id="empty-state" class="muted">No quotes yet. Add one above, or click “Sync now” to fetch server quotes.</p>
-    </section>
-  </main>
-
-  <!-- Conflict Resolution Modal -->
-  <dialog id="conflict-modal" class="modal">
-    <form method="dialog" class="modal-card">
-      <h3>Conflict Detected</h3>
-      <p>
-        This quote was edited both locally <strong>and</strong> on the server since the last sync.
-        Server data takes precedence automatically. Choose which version to keep:
-      </p>
-
-      <div class="conflict-grid">
-        <div>
-          <h4>Local version</h4>
-          <div class="kv"><strong>Text:</strong><pre id="local-text"></pre></div>
-          <div class="kv"><strong>Author:</strong><pre id="local-author"></pre></div>
-          <div class="kv"><strong>Category:</strong><pre id="local-category"></pre></div>
-          <div class="kv"><strong>Updated:</strong><span id="local-updated"></span></div>
-        </div>
-        <div>
-          <h4>Server version</h4>
-          <div class="kv"><strong>Text:</strong><pre id="server-text"></pre></div>
-          <div class="kv"><strong>Author:</strong><pre id="server-author"></pre></div>
-          <div class="kv"><strong>Category:</strong><pre id="server-category"></pre></div>
-          <div class="kv"><strong>Updated:</strong><span id="server-updated"></span></div>
-        </div>
-      </div>
-
-      <div class="row">
-        <button id="btn-keep-server" value="server">Keep Server (default)</button>
-        <button id="btn-keep-local" class="secondary" value="local">Keep Local</button>
-        <button id="btn-conflict-cancel" class="ghost" value="cancel">Close</button>
-      </div>
-      <input type="hidden" id="conflict-quote-id" />
-    </form>
-  </dialog>
-
-  <footer class="app-footer">
-    <small>Server simulation uses JSONPlaceholder for GET/POST and a local “server shadow” to track versions.</small>
-  </footer>
-
-  <script src="./script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
